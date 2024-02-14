@@ -3,6 +3,7 @@ package com.example.mdz
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -31,17 +32,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initUI() {
+        disableDarkMode()
         initListeners()
         initNavigation()
     }
 
-    private fun initListeners() {
-
-    }
+    private fun initListeners() {}
 
     private fun initNavigation() {
         val navHost = supportFragmentManager.findFragmentById(R.id.fcv) as NavHostFragment
         navController = navHost.navController
         binding.bnv.setupWithNavController(navController)
+    }
+
+    private fun disableDarkMode() {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 }

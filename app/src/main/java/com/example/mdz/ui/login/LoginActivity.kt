@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.mdz.MainActivity
 import com.example.mdz.R
+import com.example.mdz.context.ContextApp
 import com.example.mdz.data.ApiClient
 import com.example.mdz.data.request.AuthRequest
 import com.example.mdz.databinding.ActivityLoginBinding
@@ -45,8 +46,22 @@ class LoginActivity : AppCompatActivity() {
                     if (userFound(response.message)) {
                         withContext(Dispatchers.IO) {
                             val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                            ContextApp.email = email
                             startActivity(intent)
                         }
+    private fun initListeners() {
+        binding.btnLogin.setOnClickListener {
+            val email = binding.etEmail.text.toString()
+            val password = binding.etPassword.text.toString()
+            if (validateUser(email, password)) {
+                CoroutineScope(Dispatchers.IO).launch {
+                    val authRequest = AuthRequest(email, password)
+                    val response = ApiClient.apiService.postAuth(authRequest)
+                    if (userFound(response.message)) {
+                        withContext(Dispatchers.IO) {
+                            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                            ContextApp.email = email
+
                     }
                 }
             } else {

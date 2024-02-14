@@ -19,5 +19,18 @@
         android:id="@+id/turnFragment"
         android:name="com.example.mdz.ui.turn.TurnFragment"
         android:label="fragment_turn"
-        tools:layout="@layout/fragment_turn" />
+        tools:layout="@layout/fragment_turn" >
+        <action
+            android:id="@+id/action_turnFragment_to_availableTurnsActivity2"
+            app:destination="@id/availableTurnsActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/availableTurnsActivity"
+        android:name="com.example.mdz.ui.turn.availableTurns.AvailableTurnsActivity"
+        android:label="activity_available_turns"
+        tools:layout="@layout/activity_available_turns" >
+        <argument
+            android:name="service"
+            app:argType="string" />
+    </activity>
 </navigation>
